@@ -7,7 +7,7 @@ ui <- fluidPage(
   h3("Voxel-level changes in mean Amyloid-Beta plaque size:"),
   p("Thresholded at p < 0.05 (", span("decrease", style = "color:magenta"), ",",
     span("increase", style = "color:green"),")"),
-  imageOutput("image", width = "700", height = "470"),
+  imageOutput("image", width = "700", height = "400"),
   h3("Genes ranked by mutual information (MI) between gene transcription levels and treatment effect:"),
   DT::dataTableOutput("table")
 )
@@ -28,6 +28,7 @@ server <- function(input, output, session) {
     outfile <- tempfile(fileext='.png')
     png(outfile, width = width*pixelratio, height = height*pixelratio, res = 72*pixelratio)
     pp <- readPNG(image.filename)
+    par(mar = c(0,0,0,0))
     plot.new()
     rasterImage(pp, 0, 0, 1, 1)
     dev.off()
